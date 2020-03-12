@@ -103,6 +103,7 @@ def add_subscription(youtube, channel_id):
     body=dict(
       snippet=dict(
         resourceId=dict(
+          kind="youtube#channel", # Edited on 13/3/2020 as youtube api changes
           channelId=channel_id
         )
       )
@@ -137,6 +138,7 @@ if __name__ == "__main__":
       channel_title = add_subscription(youtube, channel_id)
     except HttpError as e:
       error_domain = eval(e.content.decode('utf-8'))['error']['errors'][0]['domain']
+      #print(e.resp.status, e.content)
       if error_domain == 'youtube.subscription':
         print('\nSubscription quota has been reached.\n' +
         'All subscribed channels were saved to channels_subscribed.txt.\nTry again at a later time...')
